@@ -1,0 +1,128 @@
+.history-container {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 20px;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.history-header h1 {
+  margin: 0;
+  color: #1e293b;
+  font-size: 2rem;
+}
+
+/* Individual Expense Cards */
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.expense-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.expense-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.card-main-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.expense-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #334155;
+  margin: 0 0 4px 0;
+}
+
+.expense-date {
+  color: #64748b;
+  font-size: 0.875rem;
+}
+
+.expense-amount {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #22c55e;
+  margin: 0;
+}
+
+/* Itemized List inside card */
+.items-preview {
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 15px;
+  margin-top: 15px;
+}
+
+.items-preview-title {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #475569;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.history-item-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 0.9rem;
+  color: #1e293b;
+}
+
+.history-item-row:last-child {
+  border-bottom: none;
+}
+
+/* Badges */
+.badge-container {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.category-badge {
+  background-color: #e0e7ff;
+  color: #4338ca;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Empty State */
+.empty-history {
+  text-align: center;
+  padding: 80px 20px;
+  background: #f1f5f9;
+  border-radius: 20px;
+  border: 2px dashed #cbd5e1;
+}
+
+/* Loading/Error common */
+.status-container {
+  text-align: center;
+  margin-top: 100px;
+  color: #64748b;
+}
