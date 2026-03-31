@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://localhost:5000/api',   // Your backend base URL
+  baseURL: 'https://smart-expense-tracker-1-unwm.onrender.com/api',   // Your backend base URL
 });
 
 // Add token to every request if available
