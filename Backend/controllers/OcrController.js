@@ -63,7 +63,7 @@ const scanBill = async (req, res) => {
     // Send only clean item names to ML
     const itemsForML = parsedItems.map(item => item.item);
 
-    const aiResponse = await axios.post("http://localhost:8000/predict", {
+    const aiResponse = await axios.post("https://smart-expense-tracker-lrgv.onrender.com/predict", {
       items: itemsForML
     });
 
