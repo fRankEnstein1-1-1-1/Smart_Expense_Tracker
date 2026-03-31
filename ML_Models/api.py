@@ -10,6 +10,14 @@ vectorizer = joblib.load("vectorizer.pkl")
 
 class Items(BaseModel):
     items: list[str]
+    
+@app.get("/")
+async def home():
+    return {
+        "message": "Smart Expense Tracker ML API is running successfully! 🚀",
+        "status": "healthy",
+        "endpoints": ["/predict"]
+    }
 
 @app.post("/predict")
 def predict(data: Items):
