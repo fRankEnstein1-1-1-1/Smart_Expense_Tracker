@@ -1,0 +1,217 @@
+/* ==========================================================================
+   Design Tokens & Global Styles: Smart Expense Tracker
+   Theme: Dark, calm, premium fintech (Linear/Stripe/Vercel inspired)
+   ========================================================================== */
+
+:root {
+  /* Color Palette - Surfaces & Backgrounds */
+  --bg-app: #0B0D12;
+  --bg-surface: #12151C;
+  --bg-elevated: #181C25;
+  --bg-hover: #1F2430;
+
+  /* Borders */
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-strong: rgba(255, 255, 255, 0.12);
+  --border-accent: rgba(124, 131, 255, 0.35);
+
+  /* Typography */
+  --text-primary: #E8EAF0;
+  --text-secondary: #9AA3B2;
+  --text-muted: #667085;
+
+  /* Accent (Fintech Indigo/Violet) */
+  --accent: #7C83FF;
+  --accent-hover: #9096FF;
+  --accent-active: #676EDD;
+  --accent-subtle: rgba(124, 131, 255, 0.12);
+  --accent-glow: rgba(124, 131, 255, 0.22);
+  --focus-ring: 0 0 0 3px rgba(124, 131, 255, 0.35);
+
+  /* Status Colors */
+  --color-success: #34D399;
+  --color-success-bg: rgba(52, 211, 153, 0.12);
+  --color-warning: #FBBF24;
+  --color-warning-bg: rgba(251, 191, 36, 0.12);
+  --color-danger: #F87171;
+  --color-danger-bg: rgba(248, 113, 113, 0.12);
+
+  /* Category Colors (Muted dots/pills with ~15% opacity backgrounds) */
+  --cat-food: #34D399;
+  --cat-food-bg: rgba(52, 211, 153, 0.14);
+  --cat-healthcare: #38BDF8;
+  --cat-healthcare-bg: rgba(56, 189, 248, 0.14);
+  --cat-personal-care: #F472B6;
+  --cat-personal-care-bg: rgba(244, 114, 182, 0.14);
+  --cat-clothing: #A78BFA;
+  --cat-clothing-bg: rgba(167, 139, 250, 0.14);
+  --cat-household: #FBBF24;
+  --cat-household-bg: rgba(251, 191, 36, 0.14);
+  --cat-transport: #60A5FA;
+  --cat-transport-bg: rgba(96, 165, 250, 0.14);
+  --cat-entertainment: #FB7185;
+  --cat-entertainment-bg: rgba(251, 113, 133, 0.14);
+  --cat-utilities: #2DD4BF;
+  --cat-utilities-bg: rgba(45, 212, 191, 0.14);
+  --cat-misc: #94A3B8;
+  --cat-misc-bg: rgba(148, 163, 184, 0.14);
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-full: 999px;
+
+  /* Spacing Scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* Shadows (subtle, layered, low opacity) */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 200ms ease;
+
+  /* Layout */
+  --max-width: 1100px;
+  --navbar-height: 64px;
+}
+
+/* ==========================================================================
+   CSS Reset & Base
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Accessibility & Focus States */
+:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Typography defaults */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+h1 {
+  font-size: 1.875rem;
+  letter-spacing: -0.025em;
+}
+
+h2 {
+  font-size: 1.35rem;
+  letter-spacing: -0.02em;
+}
+
+h3 {
+  font-size: 1.1rem;
+  letter-spacing: -0.01em;
+}
+
+p {
+  color: var(--text-secondary);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--accent-hover);
+}
+
+/* Tabular numbers for currency and dates */
+.tabular-nums,
+[data-tabular="true"] {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* App layout wrapper */
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-4);
+}
+
+@media (min-width: 640px) {
+  .main-content {
+    padding: var(--space-8) var(--space-6);
+  }
+}
+
+@media (min-width: 1024px) {
+  .main-content {
+    padding: var(--space-12) var(--space-8);
+  }
+}
+
+/* Common page header */
+.page-header {
+  margin-bottom: var(--space-8);
+}
+
+.page-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.025em;
+  margin-bottom: var(--space-2);
+}
+
+.page-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}

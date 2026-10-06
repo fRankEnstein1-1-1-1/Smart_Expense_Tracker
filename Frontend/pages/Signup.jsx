@@ -1,69 +1,122 @@
-import { useState } from "react";
-import {useNavigate,Link} from "react-router-dom"
-import { useAuth } from "../context/AuthContext";
-import "./Signup.css"
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import Input from '../src/components/Input';
+import Button from '../src/components/Button';
+import Alert from '../src/components/Alert';
+import { SparklesIcon, ArrowRightIcon } from '../src/components/Icons';
+import './Signup.css';
 
-function Signup(){
-const [name,setname] = useState("")
-const [email,setemail]  = useState("")
-const [password,setpassword] = useState("")
-const[loading,isloading] = useState(false)
-const {register} = useAuth()
+function Signup() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-const navigate = useNavigate()
+  const { register } = useAuth();
+  const navigate = useNavigate();
 
-const handleSubmit = async(e) =>{
-    e.preventDefault()
-    try{
-        isloading(true)
-    await register(name,email,password)
-    navigate("/home")
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrorMessage('');
+
+    if (!name.trim() || !email.trim() || !password) {
+      setErrorMessage('Please fill in all required fields.');
+      return;
     }
-    catch(error){
-        console.log(error)
+
+    try {
+      setLoading(true);
+      await register(name, email, password);
+      navigate('/home');
+    } catch (error) {
+      setErrorMessage(
+        error.message ||
+        error.response?.data?.message ||
+        'Failed to create account. Please try again.'
+      );
+    } finally {
+      setLoading(false);
     }
-    finally{
-        isloading(false)
-    }
-}
-return (
-    <div className="signup-container">
-      <div className="signup-card">
-        <h2>Create Account</h2>
-        <form onSubmit={handleSubmit} className="signup-form">
-          <input
-            className="signup-input"
+  };
+
+  return (
+    <div className="auth-container">
+      <div className="auth-card">
+        <div className="auth-header">
+          <div className="auth-wordmark">
+            <SparklesIcon size={14} />
+            <span>Smart Expense Tracker</span>
+          </div>
+          <h1 className="auth-title">Create Account</h1>
+          <p className="auth-subtitle">Get started with automated bill expense tracking</p>
+        </div>
+
+        {errorMessage && (
+          <Alert variant="error" onClose={() => setErrorMessage('')}>
+            {errorMessage}
+          </Alert>
+        )}
+
+        <form onSubmit={handleSubmit} className="auth-form" noValidate>
+          <Input
+            id="signup-name"
+            label="Full Name"
             type="text"
+            placeholder="John Doe"
             value={name}
-            onChange={(e) => setname(e.target.value)}
-            placeholder="Full Name"
+            onChange={(e) => setName(e.target.value)}
             required
+            autoComplete="name"
           />
-          <input
-            className="signup-input"
+
+          <Input
+            id="signup-email"
+            label="Email Address"
             type="email"
+            placeholder="you@example.com"
             value={email}
-            onChange={(e) => setemail(e.target.value)}
-            placeholder="Email Address"
+            onChange={(e) => setEmail(e.target.value)}
             required
+            autoComplete="email"
           />
-          <input
-            className="signup-input"
+
+          <Input
+            id="signup-password"
+            label="Password"
             type="password"
+            placeholder="••••••••"
             value={password}
-            onChange={(e) => setpassword(e.target.value)}
-            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
             required
+            allowTogglePassword
+            autoComplete="new-password"
           />
-          <button className="signup-button" disabled={loading}>
-            {loading ? "Creating Account..." : "Sign Up"}
-          </button>
+
+          <div className="auth-submit-btn">
+            <Button
+              type="submit"
+              variant="primary"
+              size="lg"
+              block
+              loading={loading}
+              icon={!loading && <ArrowRightIcon size={16} />}
+            >
+              {loading ? 'Creating Account…' : 'Create Account'}
+            </Button>
+          </div>
         </form>
-        <Link to="/" className="login-link">
-          Existing user? Sign in
-        </Link>
+
+        <div className="auth-footer">
+          Already have an account?
+          <Link to="/" className="auth-link">
+            Sign in
+          </Link>
+        </div>
       </div>
     </div>
   );
 }
-export default Signup
+
+export default Signup;

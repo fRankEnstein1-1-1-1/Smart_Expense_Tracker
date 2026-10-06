@@ -1,69 +1,110 @@
-import {useState} from "react"
-import { useAuth } from "../context/AuthContext"
-import { useNavigate ,Link } from "react-router-dom"
-import "./Login.css"
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import Input from '../src/components/Input';
+import Button from '../src/components/Button';
+import Alert from '../src/components/Alert';
+import { SparklesIcon, ArrowRightIcon } from '../src/components/Icons';
+import './Login.css';
 
-function Login(){
-    const [email,setemail] = useState("")
-    const [password,setpassword] = useState("")
-    const [loading , setloading] = useState(false)
-    const {login} = useAuth()
-    const navigate = useNavigate()
+function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
-     async function handleSubmit(e){
-        e.preventDefault()
-        try{
-            setloading(true)
-            await login (email,password)
-            navigate("/home")
-        }
-        catch(error){
-            console.log(error)
-        }
-        finally{
-            setloading(false)
-        }
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setErrorMessage('');
+
+    if (!email.trim() || !password) {
+      setErrorMessage('Please enter both email and password.');
+      return;
     }
 
-   return (
-    <div className="login-container">
-      <div className="login-card">
-        <h2>Welcome Back</h2>
-        <p>Please enter your details to sign in</p>
-        
-        <form onSubmit={handleSubmit} className="login-form">
-          <input
-            className="login-input"
-            type="email" // Changed for validation
-            placeholder="Email Address"
+    try {
+      setLoading(true);
+      await login(email, password);
+      navigate('/home');
+    } catch (error) {
+      setErrorMessage(
+        error.message ||
+        error.response?.data?.message ||
+        'Unable to log in. Please check your credentials.'
+      );
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <div className="auth-container">
+      <div className="auth-card">
+        <div className="auth-header">
+          <div className="auth-wordmark">
+            <SparklesIcon size={14} />
+            <span>Smart Expense Tracker</span>
+          </div>
+          <h1 className="auth-title">Welcome Back</h1>
+          <p className="auth-subtitle">Sign in to access your bill insights &amp; history</p>
+        </div>
+
+        {errorMessage && (
+          <Alert variant="error" onClose={() => setErrorMessage('')}>
+            {errorMessage}
+          </Alert>
+        )}
+
+        <form onSubmit={handleSubmit} className="auth-form" noValidate>
+          <Input
+            id="login-email"
+            label="Email Address"
+            type="email"
+            placeholder="you@example.com"
             value={email}
-            onChange={(e) => setemail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             required
+            autoComplete="email"
           />
-          <input
-            className="login-input"
-            type="password" // Changed for security
-            placeholder="Password"
+
+          <Input
+            id="login-password"
+            label="Password"
+            type="password"
+            placeholder="••••••••"
             value={password}
-            onChange={(e) => setpassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             required
+            allowTogglePassword
+            autoComplete="current-password"
           />
-          <button 
-            className="login-button" 
-            type="submit" 
-            disabled={loading}
-          >
-            {loading ? "Logging in..." : "Login"}
-          </button>
+
+          <div className="auth-submit-btn">
+            <Button
+              type="submit"
+              variant="primary"
+              size="lg"
+              block
+              loading={loading}
+              icon={!loading && <ArrowRightIcon size={16} />}
+            >
+              {loading ? 'Signing In…' : 'Sign In'}
+            </Button>
+          </div>
         </form>
 
-        <Link to="/sign" className="signup-link">
-          New User? Sign up
-        </Link>
+        <div className="auth-footer">
+          Don't have an account?
+          <Link to="/sign" className="auth-link">
+            Sign up
+          </Link>
+        </div>
       </div>
     </div>
   );
-
 }
-export default Login
+
+export default Login;

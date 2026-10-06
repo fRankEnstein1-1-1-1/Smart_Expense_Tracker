@@ -1,96 +1,78 @@
-/* Container to center the form */
-.login-container {
+/* ==========================================================================
+   Auth (Login & Signup) Dark Fintech Form Styles
+   ========================================================================== */
+
+.auth-container {
   display: flex;
-  justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  justify-content: center;
+  min-height: calc(100vh - var(--navbar-height) - var(--space-12));
+  padding: var(--space-4);
 }
 
-/* The Login Card */
-.login-card {
-  background: rgba(255, 255, 255, 0.95);
-  padding: 2.5rem;
-  border-radius: 16px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+.auth-card {
   width: 100%;
-  max-width: 400px;
+  max-width: 420px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-lg);
+}
+
+.auth-header {
   text-align: center;
+  margin-bottom: var(--space-6);
 }
 
-.login-card h2 {
-  margin-bottom: 0.5rem;
-  color: #333;
+.auth-wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--accent);
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: var(--space-3);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.auth-title {
+  font-size: 1.45rem;
   font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-1);
 }
 
-.login-card p {
-  color: #666;
-  margin-bottom: 2rem;
-  font-size: 0.9rem;
+.auth-subtitle {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
 }
 
-/* Form layout */
-.login-form {
+.auth-form {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: var(--space-4);
 }
 
-/* Input styling */
-.login-input {
-  padding: 12px 16px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  outline: none;
+.auth-submit-btn {
+  margin-top: var(--space-2);
 }
 
-.login-input:focus {
-  border-color: #764ba2;
-  box-shadow: 0 0 0 2px rgba(118, 75, 162, 0.2);
+.auth-footer {
+  margin-top: var(--space-6);
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
 }
 
-/* Button styling */
-.login-button {
-  background-color: #764ba2;
-  color: white;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.3s ease, transform 0.1s ease;
-  margin-top: 0.5rem;
+.auth-link {
+  color: var(--accent);
+  font-weight: 500;
+  margin-left: 4px;
 }
 
-.login-button:hover {
-  background-color: #5a397e;
-}
-
-.login-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-.login-button:active {
-  transform: scale(0.98);
-}
-
-/* Link styling */
-.signup-link {
-  display: block;
-  margin-top: 1.5rem;
-  font-size: 0.9rem;
-  color: #666;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.signup-link:hover {
-  color: #764ba2;
+.auth-link:hover {
+  color: var(--accent-hover);
   text-decoration: underline;
 }

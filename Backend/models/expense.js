@@ -12,7 +12,7 @@ const ExpenseSchema = mongoose.Schema({
     },
     category:{
         type:String,
-        enum:["Food", "Clothing", "Healthcare", "Transport", "Entertainment", "Utilities", "Household","Miscellaneous"],
+        enum:["Food", "Clothing", "Personal Care", "Healthcare", "Transport", "Entertainment", "Utilities", "Household", "Miscellaneous"],
         default:"Miscellaneous"
     },
     billImage:{

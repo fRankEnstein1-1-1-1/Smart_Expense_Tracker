@@ -16,4 +16,5 @@ app.use(cors());
 app.use("/api/auth",authroutes)//testing done working fine
 app.use("/api/expense",expenseroutes)
 app.use("/api/ocr",ocrRoutes)
-app.listen(5000,()=>{console.log("Server running")})
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => { console.log(`Server running on port ${PORT}`); });
